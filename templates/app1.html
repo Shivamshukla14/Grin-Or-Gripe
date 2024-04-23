@@ -1,0 +1,49 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    <h4>Let's see what everyone's talking about! Paste your tweet here to analyze its sentiment🤗</h4>
+    <form method="POST" action="/app1/predict" id="messageArea">
+        <label for="tweet" class="text-primary">What's on your mind? Tweet it!</label>
+        <p><textarea name="tweet" id="tweet"></textarea></p>
+        <div class="button-container">
+            <input type="submit" class="btn btn-primary me-2" value="Analyze">
+            <input type="button" class="btn btn btn-light ms-2 me-2" value="Clear" onclick="myFunction()">
+            <a href="{{ url_for('home') }}" class="btn btn-danger ms-2">Reset</a>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block result %}
+    <h1>Sentiment Analysis result</h1>
+    <hr>
+    {% if text %}
+        <h5 class="text-secondary">Your Tweet:</h5>
+        <p style="color:var(--c-brand);">" {{ text }} "</p>
+    {% endif %}
+    <hr>
+
+    {% if final_time %}
+        <h6 class="text-secondary">Time Elapsed: <span style="color:var(--c-brand);">{{ final_time }} seconds</span> to analyse😉</h6>
+    {% endif %}
+
+    <hr>
+
+    {% if sentiment %}
+        {% if sentiment == "Negative" %}
+            <h5 class="text-secondary">The sentiment of your tweet is: </h5><strong class="text-danger"> {{ sentiment }} 😫</strong>
+            <p class="text-danger">Oh no, sounds like you're going through something tough.  Our analysis picked up on the negativity in your tweet!</p>
+        {% endif %}
+        {% if sentiment == "Positive" %}
+            <h5 class="text-secondary">The sentiment of your tweet is: </h5><strong class="text-success">  {{ sentiment }} 😁</strong>
+            <p class="text-success">Woot woot!  Our tweet decoder picked up all the good vibes in your recent post!  What's got you feeling so positive?</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+    
+
+
+    

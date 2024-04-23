@@ -1,0 +1,41 @@
+# Python 3.9.13
+
+Flask==3.0.2
+nltk==3.8.1
+numpy==1.24.1
+transformers==4.39.1
+scipy==1.12.0
+textblob==0.18.0.post0
+PyPDF2==3.0.1
+langchain==0.1.13
+langchain-google-genai==0.0.11
+langchain-community==0.0.29
+langchain-google-genai==0.0.11
+Flask-WTF==1.2.1
+WTForms==3.1.2
+Werkzeug==3.0.1
+requests==2.31.0
+flask_bootstrap
+python-dotenv
+tensorflow==2.16.1
+tf_keras==2.16.0
+scikit-learn==1.4.1.post1
+faiss-cpu==1.8.0
+
+#pytorch - pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+#Icons - remixicon.com
+#Fonts - https://www.fontshare.com/?q=Clash%20Display
+
+
+#transformers
+# for emotion recognition - arpanghoshal/EmoRoBERTa
+# app2 transformer - cardiffnlp/twitter-roberta-base-sentiment
+
+
+#Gemini
+#model - gemini-pro
+#embedding model - models/embedding-001
+
+
+#newsapi
+#link = https://newsapi.org/v2/top-headlines?country={country}&apiKey={app6_API_KEY}

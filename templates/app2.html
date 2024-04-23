@@ -1,0 +1,237 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    <h4>Feeling positive, negative, or somewhere in between? Drop your tweet below and let's see what emotions it sparks!😁</h4>
+    <form method="POST" action="/app2/predict">
+        <label for="tweet" class="text-primary">Tweet for sentiment analysis?</label>
+        <p><textarea name="tweet" id="tweet" cols="50" rows="10"></textarea></p>
+        <div class="button-container">
+            <input type="submit" class="btn btn-primary me-2" value="Analyze">
+            <input type="button" class="btn btn btn-light ms-2 me-2" value="Clear" onclick="myFunction()">
+            <a href="{{ url_for('home') }}" class="btn btn-danger ms-2">Reset</a>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block result %}
+
+    <h1>Sentiment Analysis result</h1>
+
+    <hr>
+
+    {% if text %}
+        <h5 class="text-secondary">Your Tweet:</h5>
+        <p style="color:var(--c-brand);">" {{ text }} "</p>
+    {% endif %}
+
+    <hr>
+
+    {% if final_time %}
+        <h6 class="text-secondary">Time Elapsed: <span style="color:var(--c-brand);">{{ final_time }} seconds</span> to analyse😉</h6>
+    {% endif %}
+
+    <hr>
+
+    {% if sentiment_results %}
+        <h5 class="text-secondary">Your Sentiments seems to be🤔</h5>
+        <ul>
+            {% for label, score in sentiment_results %}
+                <h6>
+                    <li class="m-4 sentiment-{{ label }}" style="list-style-type: none;">
+                        {{ label }} : {{ score }}
+                    </li>
+                </h6>
+                
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <hr>
+
+    {% if emotion_label %}
+        
+        <h6 class="text-secondary">We detected an Emotional wave!</h6>    
+
+        {% if emotion_label == "admiration" %}
+            <p class="text-success">
+                Hey there! It looks like you spotted something truly impressive in that tweet. Your reaction definitely shows your <b>admiration!</b>. What part did you find most amazing?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "amusement" %}
+            <p class="text-success">
+                Haha, looks like that tweet tickled your funny bone! Our app picked up on your <b>amusement.</b> What part had you cracking up? Spill the tea! ☕️
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "anger" %}
+            <p class="text-danger">
+                Woah there, we sense some <b>anger</b> in your tweet!  Is everything alright? 
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "annoyance" %}
+            <p class="text-danger">
+                We can sense a little irritation in your recent tweet. Ugh, those pesky <b>annoyances!</b> Want to vent about it, or are you looking for some ways to de-stress?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "approval" %}
+            <p class="text-success">
+                "Nice one! Our app detected <b>approval</b> in your tweet. What got your thumbs up?"
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "caring" %}
+            <p class="text-success">
+                "Awww, that's sweet! We picked up on the <b>caring</b> vibes in your tweet. Who or what are you feeling so good about?"
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "confusion" %}
+            <p style="color: var(--c-brand);">
+                Hmm, seems like something's got you puzzled!😵 We noticed <b>confusion</b> in your tweet.
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "curiosity" %}
+            <p class="text-success">
+                "Intriguing! Our analysis suggests your recent tweet is bursting with <b>curiosity.</b> What are you wondering about?"
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "desire" %}
+            <p class="text-success">
+                "Sounds like you're setting your sights on something exciting! We noticed a strong <b>desire</b> in your tweet. What are you going after?"
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "disappointment" %}
+            <p class="text-danger">
+                Aw bummer!😥 Our app detected <b>disappointment</b> in your tweet. What's got you feeling down?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "disapproval" %}
+            <p class="text-danger">
+                Oh no, seems like something didn't meet your expectations!😯 We noticed <b>disapproval</b> in your tweet. Want to share what you're not happy about?
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "disgust" %}
+            <p class="text-danger">
+                Ugh, sounds gross!😫 Our app picked up on some <b>disgust</b> in your tweet. Care to share what's got you feeling icky?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "embarrassment" %}
+            <p class="text-danger">
+                Feeling a little red in the face?😳 We noticed some <b>embarrassment</b> in your tweet. Want to talk about it, or just move on?
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "excitement" %}
+            <p class="text-success">
+                "Woohoo! We can feel the <b>excitement</b> radiating from your tweet! What's got you so pumped?"
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "fear" %}
+            <p class="text-danger">
+                Yikes, we sense some <b>fear</b> in your tweet!😨 Is everything alright? 
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "gratitude" %}
+            <p class="text-success">
+                "Feeling thankful?😋 Our app picked up on the <b>gratitude</b> in your tweet. What are you grateful for today?"
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "grief" %}
+            <p class="text-danger">
+                So sorry to hear that.🙇‍♂️ We detected <b>grief</b> in your tweet. Our thoughts are with you during this difficult time.
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "joy" %}
+            <p class="text-success">
+                Spreading the sunshine!😃 Our analysis detected pure <b>joy</b> in your tweet. What's got you feeling so happy?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "love" %}
+            <p class="text-success">
+                Love is in the air!❤️ We noticed the <b>love</b> in your recent tweet. Sharing the love for a friend, family member or Someone special?
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "nervousness" %}
+            <p class="text-danger">
+                Feeling a bit jittery?😬 Our app picked up on some <b>nervousness</b> in your tweet. Is there something big coming up?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "optimism" %}
+            <p class="text-success">
+                Looking on the bright side!☀️ We detected <b>optimism</b> in your tweet. What positive vibes are you sending out today?
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "pride" %}
+            <p class="text-success">
+                Sounds like you're feeling proud!🌈 Our app picked up on that <b>pride</b> in your tweet. What accomplishment are you celebrating?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "realization" %}
+            <p style="color: var(--c-brand);">
+                Aha moment!😄 Our analysis suggests a <b>realization</b> in your tweet. What did you just figure out?
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "relief" %}
+            <p class="text-success">
+                Glad to hear it!🤗 We noticed a sense of <b>relief</b> in your tweet. Feeling better about something?
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "remorse" %}
+            <p class="text-danger">
+                We all make mistakes!😔 Our analysis suggests <b>remorse</b> in your tweet.
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "sadness" %}
+            <p class="text-danger">
+                Feeling down?🥲 Our app detected <b>sadness</b> in your tweet!
+            </p>
+        {% endif %}
+        
+        {% if emotion_label == "surprise" %}
+            <p style="color: var(--c-brand);">
+                "Whoa, that's unexpected!😋 We detected <b>surprise</b> in your tweet.
+            </p>
+        {% endif %}
+
+        {% if emotion_label == "neutral" %}
+            <p style="color: var(--c-brand);">
+                Seems like a <b>neutral</b> statement in your tweet😗. Is there anything else you'd like to share or analyze?
+            </p>
+        {% endif %}
+        
+    {% endif %}
+
+    <hr>
+
+    {% if emotion_score %}
+        <h6 class="text-secondary">Emotional Intensity: <span style="color:var(--c-brand);">{{ emotion_score }}%</span></h6>
+    {% endif %}
+
+    <hr>
+
+    
+
+{% endblock %}

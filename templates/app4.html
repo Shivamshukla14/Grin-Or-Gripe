@@ -1,0 +1,62 @@
+{% extends "home.html" %}
+
+{% block content %}
+    <h4>PDF party time!</h4>
+    <h5>Upload yours to join the fun😁</h5>
+    <div class="form-group" style="margin-left: 20px;">
+        <form method="POST" enctype="multipart/form-data"><br><br><br><br>
+            {{ form.csrf_token }}
+            <img src="{{ url_for('static', filename='images/pdf_chat.png') }}" id="docubot">
+            <h6 class="text-secondary">Choose PDF File</h6>
+            <input class="form-control" type="file" name="file" id="formFileMultiple" multiple>
+            {% for error in form.file.errors %}
+                <span class="error">{{ error }}</span><br>
+            {% endfor %}
+            <p class="mt-4">
+                {{ form.submit() }}
+            </p>   
+            <p class="pboarder text-white">
+                {% if filename %}
+                    {{ filename }}
+                {% else %}
+                    No file uploaded yet.
+                {% endif %}
+            </p>
+        </form>
+    </div>
+        
+
+{% endblock %}
+
+
+{% block result %}
+    <div class="card">
+        <div class="card-header msg_head">
+            <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                    <img src="{{ url_for('static', filename='images/logo_head.png') }}" class="rounded-circle user_img">
+                    <span class="online_icon"></span>
+                </div>
+                <div class="user_info">
+                    <span>DocuBot📚</span>
+                    <p>Got a question? Fire away!</p>
+                </div>
+            </div>
+        </div>
+        <div id="messageFormeight" class="card-body msg_card_body">
+
+
+        </div>
+        <div class="card-footer">
+            <form id="messageAreaDocuBot" class="input-group">
+                <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off"
+                    class="form-control type_msg" required />
+                <div class="input-group-append">
+                    <button type="submit" id="send" class="input-group-text send_btn">
+                        <i class="ri-send-plane-2-fill"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

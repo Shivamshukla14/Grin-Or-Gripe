@@ -1,0 +1,76 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    <h4>Let us know what you think! We value your feedback!</h4>
+    <form method="POST" action="/app3/analyse">
+        <label for="rawtext" class="text-primary">Click here to write a review!</label>
+        <p><textarea name="rawtext" id="tweet" cols="50" rows="10"></textarea></p>
+        <div class="button-container">
+            <input type="submit" class="btn btn-primary me-2" value="Analyze">
+            <input type="button" class="btn btn btn-light ms-2 me-2 clear" value="Clear" onclick="myFunction()">
+            <a href="{{ url_for('home') }}" class="btn btn-danger ms-2">Reset</a>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block result %}
+
+    <h1>Sentiment Analysis result on reviews🛒</h1>
+    <hr/>
+    {% if number_of_tokens %}
+        {% if len_of_words %}
+            <h5 class="text-secondary">Main Points:</h5>
+            <p style="color:var(--c-brand);">The review has <span class="text-danger">{{ number_of_tokens }} tokens</span> with <span class="text-danger">{{ len_of_words }} important point</span></p>
+            <hr/>
+        {% endif %}
+    {% endif %}
+
+    {% if received_text %}
+        <h5 class="text-secondary">Your Text:</h5>
+        <p style="color:var(--c-brand);">" {{ received_text }} "</p>
+        <hr/>
+    {% endif %}
+
+    {% if final_time %}
+        <p class="text-dark">Time Elapsed: <span style="color:var(--c-brand);">{{ final_time }} </span> seconds to analyse</p>
+    {% endif %}
+
+    {% if summary %}
+        <hr/>
+        <h5>The review is all about :</h5>
+        {% for i in summary %}
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info" style="background-color: var(--c-brand); color: white;"><strong>{{i}}</strong>
+                <a href="http://www.dictionary.com/browse/{{i}}?s=" target="_blank" type="button" class="btn btn-danger btn-sm" style="float:right;font-size:9px;color:#fff;">
+                    View
+                </a>
+                </li>
+            </ul>
+            <hr/>
+        {% endfor %}
+    {% endif %}
+
+    {% if blob_sentiment %}
+        {% if blob_subjectivity %}
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Sentiment</th>
+                        <th scope="col">Polarity</th>
+                        <th scope="col">Subjectivity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Score:</th>
+                        <td>{{blob_sentiment}}</td>
+                        <td>{{blob_subjectivity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

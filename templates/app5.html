@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+
+
+{% block content %}
+    <h4>Ready for a happiness boost?</h4>
+    <img src="{{ url_for('static', filename='images/news.png') }}" id="newsapp" class="mt-4">
+    <div class="container">
+        <form action="/app5/mailsent" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label text-white m-4">Enter Recipient email:</label>
+                <input type="email" class="form-control" id="sendto" name="sendto" placeholder="name@example.com" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Get Positive News</button>
+            </div>
+            <p class="text-success m-2">{{ message }}</p>
+            
+        </form>
+    </div>
+        
+{% endblock %}
+
+
+{% block result %}
+    <h4>Happy Headlines Arriving Soon!</h4>
+    <img src="{{ url_for('static', filename='images/success.png') }}" id="newsicon">
+    <h5 class="text-white">Your positive news digest has been sent to your inbox. Check it out!"</h5>
+    
+{% endblock %}
