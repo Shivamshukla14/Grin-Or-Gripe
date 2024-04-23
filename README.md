@@ -19,7 +19,7 @@ Grin Or Gripe offers a suite of tools to tackle your sentiment analysis needs:
 
 **Prerequisites:**
 
-* Python 3.9.13
+* Python 3.9.x and later
 * A variety of Python libraries are required. Refer to the `requirements.txt` file for details.
 
 **Installation:**
