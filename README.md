@@ -58,3 +58,22 @@ We welcome contributions to Grin Or Gripe! If you'd like to get involved, please
 4. Open a pull request from your branch to the main branch of the repository.
 
 **We hope you find Grin Or Gripe useful!**
+
+Output:
+**Homepage😋**
+![Screenshot (25)](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/a7b853aa-781c-4ad2-9f8d-a46f1d8a2e1f)
+**TwitMeter✨**
+![app1](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/cdf2b0b5-32d9-4fb8-9d34-773827fe3b78)
+**TwitMeter++**
+![app2](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/67742d29-e591-4a87-bee0-dcf0d15d3826)
+**Veritas🛒**
+![app3](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/9b8e6691-f366-4ace-a0fa-59efa711123a)
+**DocuBot📚**
+![app4](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/16a02b4f-3072-4412-a4d2-936c326cf0f6)
+**Posify💌**
+![app5](https://github.com/Shivamshukla14/Grin-Or-Gripe/assets/80144030/0265733b-a521-455d-842e-a7c65b5f52f3)
+
+
+
+
+
