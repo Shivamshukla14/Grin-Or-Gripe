@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, request, Blueprint, redirect, flash ,session
 from flask_bootstrap import Bootstrap
 
-#Disabling oneDNN (Optional)
+#Disabling oneDNN (Optional)----------------------------------------------------------------
 import os
 os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
 
-#Import for app1
+#Import for app1-------------------------------------------------------------------------------
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -14,16 +14,16 @@ import re
 import numpy as np
 
 
-#Import for app2
+#Import for app2-----------------------------------------------------------------------
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
 from scipy.special import softmax
 
-#Import for app3
+#Import for app3--------------------------------------------------------------------------
 from textblob import TextBlob, Word
 import random
 import time
 
-#Import for app4
+#Import for app4----------------------------------------------------------------------------
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
@@ -39,17 +39,17 @@ from wtforms.validators import InputRequired, DataRequired, Length, Email
 from werkzeug.utils import secure_filename
 
 
-#Import for app6
+#Import for app5----------------------------------------------------------------------------
 from nltk.sentiment import SentimentIntensityAnalyzer
 import requests
 import smtplib, ssl
 
-#Import for record maintainance
+#Import for record maintainance-----------------------------------------------------------------
 import csv
 from datetime import datetime
 
 
-#Loading the Environment Variables for app4
+#Loading the Environment Variables for app4-----------------------------------------------------
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -58,7 +58,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # nltk.download('stopwords')
 
 
-#basic requirements for app5
+#basic requirements for app5-----------------------------------------------------------------------
 app6_analyzer = SentimentIntensityAnalyzer()
 app6_API_KEY = "news_api_key"
 country = "in"
@@ -69,7 +69,7 @@ app6_url = f"https://newsapi.org/v2/top-headlines?country={country}&apiKey={app6
 app = Flask(__name__)
 
 
-app.secret_key = 'chatbot'
+app.secret_key = 'F]eO[*'Dt<9&ikPNO*ox|&r9$p<Rjb'
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'uploads')
 
@@ -81,14 +81,14 @@ app3_bp = Blueprint('app3', __name__)
 app4_bp = Blueprint('app4', __name__)
 app5_bp = Blueprint('app5', __name__)
 
-
+#Path for each csv files------------------------------------------------------
 app1_csv_filename = "static/csv/app1_input_data.csv"
 app2_csv_filename = "static/csv/app2_input_data.csv"
 app3_csv_filename = "static/csv/app3_input_data.csv"
 app5_csv_filename = "static/csv/app5_input_data.csv"
 
 
-# Function to write input data with current date and time to a CSV file
+# Function to write input data with current date and time to a CSV file--------
 def write_to_csv(sendto, app5_csv_filename):
     current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(app5_csv_filename, 'a', newline='') as file:
@@ -108,20 +108,20 @@ def write_to_csv_2(input_text, output_data, csv_filename):
         writer.writerow([current_datetime, input_text, *output_data])
 
 
-#login page
+#class for login page----------------------------------------------------
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email()])
     password = PasswordField('Password', validators = [DataRequired()])
     remember = BooleanField('Remeber me!')
     submit = SubmitField('Login')
 
-#Initiation Flask form for app4
+#Initiation Flask form for app4-------------------------------------------
 class UploadForm(FlaskForm):
     file = FileField('PDF File', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
 #admin details
-users = {'admin@gog.com': 'password'}
+users = {'admin_email': 'password'}
 
 #For homepafge rendering----------------------------------------------------
 @app.route('/home')
@@ -130,6 +130,7 @@ def home():
     session.clear()
     return render_template('home.html')
 
+#Login page------------------------------------------------------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -188,7 +189,7 @@ def logout():
 
 
 
-#Code for app1 (Sentiment Analysis using Pickle)----------------------------
+#Code for app1 (Sentiment Analysis using Pickle)--------------------------------------------------
 #Initializing the required variables
 loaded_vectorizer = None
 loaded_model = None
@@ -375,19 +376,16 @@ def get_pdf_text(pdf_docs):
     return  text
 
 
-
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=15000, chunk_overlap=3000)
     chunks = text_splitter.split_text(text)
     return chunks
 
 
-
 def get_vector_store(text_chunks):
     embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
-
 
 
 def get_conversational_chain():
